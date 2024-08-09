@@ -1,18 +1,17 @@
 {
-    "name": "php/php-api",
     "autoload": {
         "psr-4": {
-            "app\\": "app/"
-        }
+            "App\\": "App/"
+        },
+        "files": [
+            "config.php"
+        ]
     },
     "authors": [
         {
             "name": "luiizsilverio",
             "email": "luiiz.silverio@gmail.com"
         }
-    ],
-    "files": [
-        "config.php"
     ],
     "require": {}
 }
