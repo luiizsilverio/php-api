@@ -30,7 +30,20 @@
     }
 
     public static function getAll() {
+      try {
+        if (!self::$conn)
+          self::$conn = new \PDO(DBDRIVE . ': host=' . DBHOST . '; dbname=' . DBNAME, DBUSER, DBPASS);
+      
+        self::$conn->exec("set names utf8");
+        $sql = "SELECT * FROM " . self::TABLE . " ORDER BY name";
+        $query = self::$conn->prepare($sql);
+        $query->execute();
 
+        return $query->fetchAll(\PDO::FETCH_ASSOC);
+    
+      } catch (\PDOException $erro) {
+        echo $erro->getMessage();
+      }
     }
     
   }
