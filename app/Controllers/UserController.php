@@ -14,8 +14,18 @@
       }
     }
 
-    public function post() {
-
+    public function post() {     
+      if (!isset($_POST['password']) || empty($_POST['password'])) {
+        throw new \Exception ("Informe a senha");
+      }
+      elseif (!isset($_POST['name']) || !isset($_POST['email'])) {
+        throw new \Exception ("Informe o nome e o e-mail");
+      } 
+      elseif (empty($_POST['name']) || empty($_POST['email'])) {
+        throw new \Exception ("Informe o nome e o e-mail");
+      } else {
+        return User::insert($_POST);
+      }
     }
 
     public function update() {

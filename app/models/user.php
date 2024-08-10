@@ -45,5 +45,29 @@
         echo $erro->getMessage();
       }
     }
+
+    public static function insert($data) {
+      try {
+        if (!self::$conn)
+        self::$conn = new \PDO(DBDRIVE . ': host=' . DBHOST . '; dbname=' . DBNAME, DBUSER, DBPASS);
+    
+        self::$conn->exec("set names utf8");
+        $sql = "INSERT INTO " . self::TABLE . " VALUES (default, :name, :email, :pass)";
+        $query = self::$conn->prepare($sql);
+        $query->bindValue(':name', $data['name']);
+        $query->bindValue(':email', $data['email']);
+        $query->bindValue(':pass', $data['password']);
+        $query->execute();
+
+        if ($query->rowCount() > 0) {
+          return "Usuário cadastrado com sucesso";
+        } else {
+          throw new \Exception("Erro ao cadastrar usuário");
+        }
+
+      } catch (\PDOException $erro) {
+        echo $erro->getMessage();
+      }
+    }
     
   }
